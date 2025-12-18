@@ -1,311 +1,336 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>İyi ki Doğdun Hayatım</title>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
-:root {
---primary-color: #e83e8c;
---secondary-color: #ff75a0;
---bg-gradient: linear-gradient(135deg, #fff5f7 0%, #ffd1dc 100%);
---card-bg: rgba(255, 255, 255, 0.92);
---text-color: #5a5a5a;
-}
-* {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-}
-body {
-overflow: hidden;
-background: var(--bg-gradient);
-font-family: 'Poppins', sans-serif;
-height: 100vh;
-display: flex;
-justify-content: center;
-align-items: center;
-position: relative;
-}
-#canvas {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-z-index: 1;
-pointer-events: none;
-}
-.overlay-bg {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: url('https://www.transparenttextures.com/patterns/cubes.png');
-opacity: 0.4;
-z-index: 0;
-}
-.giris-ekrani {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: #fff0f5;
-z-index: 9999;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-transition: all 0.8s cubic-bezier(0.77, 0, 0.175, 1);
-}
-.giris-content {
-text-align: center;
-animation: fadeInUp 1s ease both;
-}
-.giris-btn {
-padding: 18px 50px;
-font-size: 1.3rem;
-background: var(--primary-color);
-color: white;
-border: none;
-border-radius: 50px;
-cursor: pointer;
-box-shadow: 0 10px 25px rgba(232, 62, 140, 0.4);
-font-family: 'Poppins', sans-serif;
-font-weight: 600;
-transition: transform 0.3s ease, background 0.3s ease;
-outline: none;
-position: relative;
-overflow: hidden;
-}
-.giris-btn::before {
-content: '';
-position: absolute;
-top: 0;
-left: -100%;
-width: 100%;
-height: 100%;
-background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-transition: 0.5s;
-}
-.giris-btn:hover::before {
-left: 100%;
-}
-.giris-btn:hover {
-transform: translateY(-3px);
-background: var(--secondary-color);
-}
-.container {
-position: relative;
-z-index: 10;
-background: var(--card-bg);
-backdrop-filter: blur(15px);
-padding: 50px 40px;
-border-radius: 40px;
-box-shadow: 0 30px 60px rgba(0,0,0,0.15), inset 0 0 20px rgba(255,255,255,0.5);
-text-align: center;
-max-width: 480px;
-width: 85%;
-opacity: 0;
-transform: scale(0.9);
-transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-border: 2px solid rgba(255, 255, 255, 0.8);
-}
-.fotograf-cercevesi {
-width: 180px;
-height: 180px;
-margin: -90px auto 30px;
-border-radius: 50%;
-border: 6px solid white;
-padding: 6px;
-box-shadow: 0 15px 35px rgba(232, 62, 140, 0.3);
-background: var(--primary-color);
-position: relative;
-animation: pulse-border 3s infinite;
-}
-.fotograf-cercevesi img {
-width: 100%;
-height: 100%;
-object-fit: cover;
-border-radius: 50%;
-border: 4px solid white;
-}
-h1 {
-font-family: 'Dancing Script', cursive;
-background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-font-size: 3.2rem;
-margin-bottom: 25px;
-line-height: 1.2;
-}
-.mesaj-kutusu {
-min-height: 120px;
-font-size: 1.15rem;
-line-height: 1.8;
-color: var(--text-color);
-margin-bottom: 35px;
-font-weight: 400;
-padding: 0 10px;
-}
-.kalp-animasyon {
-font-size: 60px;
-color: var(--primary-color);
-animation: heartBeat 1.5s infinite;
-display: inline-block;
-filter: drop-shadow(0 5px 10px rgba(232, 62, 140, 0.3));
-}
-.final-not {
-font-size: 0.9rem;
-margin-top: 20px;
-color: #888;
-font-style: italic;
-}
-@keyframes pulse-border {
-0% { box-shadow: 0 0 0 0 rgba(232, 62, 140, 0.6); }
-70% { box-shadow: 0 0 0 20px rgba(232, 62, 140, 0); }
-100% { box-shadow: 0 0 0 0 rgba(232, 62, 140, 0); }
-}
-@keyframes heartBeat {
-0% { transform: scale(1); }
-14% { transform: scale(1.3); }
-28% { transform: scale(1); }
-42% { transform: scale(1.3); }
-70% { transform: scale(1); }
-}
-@keyframes fadeInUp {
-from { opacity: 0; transform: translateY(30px); }
-to { opacity: 1; transform: translateY(0); }
-}
-.goster {
-opacity: 1;
-transform: scale(1);
-}
-.cikis {
-opacity: 0;
-pointer-events: none;
-transform: translateY(-100%);
-}
-@media (max-width: 480px) {
-.container { padding: 40px 25px; width: 90%; margin-top: 60px; }
-.fotograf-cercevesi { width: 150px; height: 150px; margin-top: -75px; }
-h1 { font-size: 2.5rem; }
-.mesaj-kutusu { font-size: 1rem; }
-.giris-btn { padding: 15px 40px; font-size: 1.1rem; }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>İyi ki Doğdun Kıvırcığım!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* GENEL SIFIRLAMA VE AYARLAR */
+        :root {
+            --ana-renk: #ff4d6d; /* Canlı pembe */
+            --ikinci-renk: #ff8fa3; /* Açık pembe */
+            --arka-plan: linear-gradient(135deg, #fff5f7 0%, #ffe3e8 100%);
+            --kart-bg: rgba(255, 255, 255, 0.93);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: var(--arka-plan);
+            height: 100vh; /* Tam ekran yükseklik */
+            overflow: hidden; /* Kaydırma çubuklarını gizle */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* CANVAS (Konfeti Efekti için Arka Plan) */
+        #confetti-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1; /* En arkada */
+            pointer-events: none;
+        }
+
+        /* GİRİŞ PERDESİ (İlk açılış ekranı) */
+        .giris-ekrani {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #fff0f5;
+            z-index: 9999; /* En üstte */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.8s ease-in-out;
+        }
+        .giris-ekrani.gizle {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-100%); /* Yukarı kayarak kaybol */
+        }
+        .baslat-btn {
+            padding: 20px 50px;
+            font-size: 1.5rem;
+            background: var(--ana-renk);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(255, 77, 109, 0.4);
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            animation: nabiz 2s infinite;
+            transition: transform 0.3s;
+        }
+        .baslat-btn:active { transform: scale(0.95); }
+
+        /* ANA KART TASARIMI */
+        .container {
+            position: relative;
+            z-index: 10; /* Konfetilerin önünde */
+            background: var(--kart-bg);
+            backdrop-filter: blur(10px); /* Buzlu cam efekti */
+            padding: 40px 30px;
+            border-radius: 35px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            text-align: center;
+            width: 90%;
+            max-width: 480px; /* PC'de çok genişlemesin */
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); /* Zıplama efekti */
+            border: 2px solid rgba(255, 255, 255, 0.8);
+        }
+        .container.goster {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* FOTOĞRAF ÇERÇEVESİ */
+        .foto-alani {
+            width: 170px;
+            height: 170px;
+            margin: -85px auto 25px; /* Kartın dışına taşır */
+            border-radius: 50%;
+            padding: 5px;
+            background: white;
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.3);
+            animation: yuzme 3s ease-in-out infinite alternate;
+        }
+        .foto-alani img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--ikinci-renk);
+        }
+
+        /* BAŞLIK VE YAZI */
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--ana-renk);
+            font-size: 3rem;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+        .mesaj-kutusu {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.6;
+            min-height: 120px; /* Yazı yazılırken zıplamayı önler */
+            margin-bottom: 30px;
+        }
+        /* "Kıvırcığım" vurgusu */
+        .vurgu {
+            color: var(--ana-renk);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* ALT KISIM İNTERAKTİF BUTON */
+        .etkilesim-butonu {
+            background: white;
+            color: var(--ana-renk);
+            border: 2px solid var(--ana-renk);
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.2);
+        }
+        .etkilesim-butonu:hover {
+            background: var(--ana-renk);
+            color: white;
+        }
+        .etkilesim-butonu span { font-size: 1.5rem; animation: nabiz 1.5s infinite; }
+
+        /* ANİMASYONLAR */
+        @keyframes nabiz {
+            0% { box-shadow: 0 0 0 0 rgba(255, 77, 109, 0.7); transform: scale(1); }
+            70% { box-shadow: 0 0 0 20px rgba(255, 77, 109, 0); transform: scale(1.05); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 77, 109, 0); transform: scale(1); }
+        }
+        @keyframes yuzme {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+
+        /* MOBİL DÜZENLEMELER */
+        @media (max-width: 480px) {
+            .container { padding: 35px 20px; margin-top: 40px; }
+            .foto-alani { width: 150px; height: 150px; margin-top: -75px; }
+            h1 { font-size: 2.5rem; }
+            .mesaj-kutusu { font-size: 1rem; }
+            .baslat-btn { font-size: 1.2rem; padding: 15px 40px; }
+        }
+    </style>
 </head>
 <body>
-<div class="overlay-bg"></div>
-<div class="giris-ekrani" id="girisEkrani">
-<div class="giris-content">
-<h2 style="font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: var(--primary-color); margin-bottom: 30px;">Hatice'ye Özel</h2>
-<button class="giris-btn" onclick="baslat()">Sürprizi Başlat ❤️</button>
-</div>
-</div>
-<canvas id="canvas"></canvas>
-<div class="container" id="anaKart">
-<div class="fotograf-cercevesi">
-<img src="https://drive.google.com/uc?export=view&id=1e1xm19_SjGySo_N1HfmUsYZZSJsnK8z5" alt="Sevgilim">
-</div>
-<h1>İyi ki Doğdun Her Şeyim!</h1>
-<div class="mesaj-kutusu" id="yaziAlani"></div>
-<div class="kalp-animasyon">💖</div>
-<p class="final-not">Seninle geçen her saniye ömrüme ömür katıyor...</p>
-</div>
-<audio id="muzik" loop prelaod="auto">
-<source src="https://audio.jukehost.co.uk/0W475786p7924530926543643.mp3" type="audio/mp3">
-</audio>
-<script>
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-let W = window.innerWidth;
-let H = window.innerHeight;
-canvas.width = W;
-canvas.height = H;
-const mp = 35;
-const particles = [];
-for (let i = 0; i < mp; i++) {
-particles.push({
-x: Math.random() * W,
-y: Math.random() * H,
-r: Math.random() * 18 + 5,
-d: Math.random() * mp,
-color: "rgba(" + Math.floor((Math.random() * 200 + 55)) + ", " + Math.floor((Math.random() * 50)) + ", " + Math.floor((Math.random() * 100 + 100)) + ", 0.7)",
-tilt: Math.floor(Math.random() * 10) - 10,
-tiltAngle: 0,
-tiltAngleIncremental: (Math.random() * 0.05) + 0.02
-});
-}
-function draw() {
-ctx.clearRect(0, 0, W, H);
-for (let i = 0; i < mp; i++) {
-let p = particles[i];
-ctx.beginPath();
-ctx.lineWidth = p.r / 2;
-ctx.strokeStyle = p.color;
-ctx.moveTo(p.x + p.tilt + (p.r / 4), p.y);
-ctx.lineTo(p.x + p.tilt, p.y + p.tilt + (p.r / 4));
-ctx.stroke();
-}
-update();
-}
-let angle = 0;
-function update() {
-angle += 0.01;
-for (let i = 0; i < mp; i++) {
-let p = particles[i];
-p.tiltAngle += p.tiltAngleIncremental;
-p.y += (Math.cos(angle + p.d) + 3 + p.r / 2) / 3;
-p.x += Math.sin(angle);
-if (p.y > H) {
-particles[i] = {
-x: Math.random() * W,
-y: -20,
-r: p.r,
-d: p.d,
-color: p.color,
-tilt: p.tilt,
-tiltAngle: p.tiltAngle,
-tiltAngleIncremental: p.tiltAngleIncremental
-};
-}
-}
-}
-setInterval(draw, 40);
-const mesaj = "Hayatımın anlamı, canım sevgilim... Bugün senin doğum günün ama en büyük hediye bana sensin. Seninle geçen her an, bu hayattaki en güzel şiir gibi. Gülüşün dünyamı aydınlatıyor, varlığın kalbimi ısıtıyor. Yeni yaşında tüm dileklerin gerçek olsun, ellerimiz hiç ayrılmasın. Seni çok seviyorum Hatice'm...";
-const yaziAlani = document.getElementById("yaziAlani");
-let index = 0;
-function yaziYaz() {
-if (index < mesaj.length) {
-yaziAlani.innerHTML += mesaj.charAt(index);
-index++;
-setTimeout(yaziYaz, 65);
-}
-}
-function baslat() {
-const giris = document.getElementById("girisEkrani");
-const anaKart = document.getElementById("anaKart");
-const muzik = document.getElementById("muzik");
-muzik.volume = 0.4;
-giris.classList.add("cikis");
-setTimeout(() => {
-anaKart.classList.add("goster");
-setTimeout(yaziYaz, 500);
-muzik.play().then(() => {}).catch(error => {
-console.log("Oynatma hatası, tarayıcı kısıtlaması olabilir.");
-});
-}, 800);
-}
-window.addEventListener('resize', function() {
-W = window.innerWidth;
-H = window.innerHeight;
-canvas.width = W;
-canvas.height = H;
-});
-</script>
+
+    <div class="giris-ekrani" id="girisPerdesi">
+        <h2 style="color:var(--ana-renk); font-family:'Dancing Script'; font-size:2.5rem; margin-bottom:20px;">Hatice İçin...</h2>
+        <button class="baslat-btn" onclick="surpriziBaslat()">Sürprizi Başlat ❤️</button>
+    </div>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="container" id="anaKart">
+        <div class="foto-alani">
+            <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Kıvırcığım">
+        </div>
+
+        <h1>İyi ki Doğdun Her Şeyim!</h1>
+
+        <div class="mesaj-kutusu" id="daktiloAlani"></div>
+
+        <button class="etkilesim-butonu" onclick="ekstraKonfeti()">
+            <span>💖</span> Sevgini Gönder
+        </button>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/23/audio_07b2a06802.mp3?filename=romantic-piano-19336.mp3" type="audio/mp3">
+    </audio>
+
+    <script>
+        // --- GEREKLİ ELEMENTLER ---
+        const girisPerdesi = document.getElementById('girisPerdesi');
+        const anaKart = document.getElementById('anaKart');
+        const music = document.getElementById('bgMusic');
+        const daktiloAlani = document.getElementById('daktiloAlani');
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // --- MESAJ METNİ (Kıvırcığım detaylı) ---
+        // Burayı istediğin gibi düzenleyebilirsin. <br> alt satıra geçer.
+        const mesajMetni = "Canım sevgilim, hayatımın neşesi... Bugün senin en özel günün. Seninle geçen her saniye ömrüme ömür katıyor. O güzel yüzün hep gülsün, ellerimiz hiç ayrılmasın. İyi ki doğdun, iyi ki benimsin güzel <span class='vurgu'>Kıvırcığım</span>... Seni çok seviyorum! ❤️";
+
+        // --- SÜRPRİZİ BAŞLATMA FONKSİYONU ---
+        function surpriziBaslat() {
+            // 1. Müziği başlat (Tarayıcı izni için tıklama şart)
+            music.volume = 0.5;
+            music.play().catch(e => console.log("Müzik hatası:", e));
+
+            // 2. Giriş ekranını kaldır
+            girisPerdesi.classList.add('gizle');
+
+            // 3. Ana kartı göster ve animasyonları başlat
+            setTimeout(() => {
+                anaKart.classList.add('goster');
+                daktiloEfektiBaslat();
+                konfetiBaslat();
+                ekstraKonfeti(); // İlk açılışta patlama
+            }, 800);
+        }
+
+        // --- DAKTİLO YAZI EFEKTİ ---
+        let yaziIndex = 0;
+        function daktiloEfektiBaslat() {
+            // HTML etiketlerini (span, br) düzgün işlemek için özel kontrol
+            if (yaziIndex < mesajMetni.length) {
+                if (mesajMetni.charAt(yaziIndex) === '<') {
+                    // HTML etiketini bul ve tamamını ekle
+                    let htmlTag = "";
+                    while (mesajMetni.charAt(yaziIndex) !== '>' && yaziIndex < mesajMetni.length) {
+                        htmlTag += mesajMetni.charAt(yaziIndex);
+                        yaziIndex++;
+                    }
+                    htmlTag += '>';
+                    yaziIndex++;
+                    daktiloAlani.innerHTML += htmlTag;
+                } else {
+                    // Normal karakteri ekle
+                    daktiloAlani.innerHTML += mesajMetni.charAt(yaziIndex);
+                    yaziIndex++;
+                }
+                setTimeout(daktiloEfektiBaslat, 50); // Yazma hızı (ms)
+            }
+        }
+
+        // --- GELİŞMİŞ KONFETİ EFEKTİ (Canvas) ---
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particles = [];
+        const colors = ['#ff4d6d', '#ff8fa3', '#ffd700', '#ffffff', '#ff9a9e'];
+
+        function createParticle(x, y, explosion) {
+            const particle = {
+                x: x,
+                y: y,
+                radius: Math.random() * 8 + 3,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                velocity: {
+                    x: (Math.random() - 0.5) * (explosion ? 20 : 4),
+                    y: explosion ? (Math.random() * -15 - 5) : (Math.random() * 5 + 2)
+                },
+                gravity: 0.2,
+                opacity: 1,
+                rotation: Math.random() * Math.PI * 2,
+                rotationSpeed: (Math.random() - 0.5) * 0.1
+            };
+            particles.push(particle);
+        }
+
+        // Sürekli yağan konfetiler
+        function konfetiBaslat() {
+            setInterval(() => {
+                createParticle(Math.random() * canvas.width, -10, false);
+            }, 200);
+        }
+
+        // Butona basınca patlayan konfetiler
+        function ekstraKonfeti() {
+            for (let i = 0; i < 50; i++) {
+                createParticle(window.innerWidth / 2, window.innerHeight / 1.5, true);
+            }
+        }
+
+        function animateConfetti() {
+            requestAnimationFrame(animateConfetti);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach((particle, index) => {
+                particle.velocity.y += particle.gravity;
+                particle.x += particle.velocity.x;
+                particle.y += particle.velocity.y;
+                particle.rotation += particle.rotationSpeed;
+                particle.opacity -= 0.003;
+
+                if (particle.y > canvas.height || particle.opacity <= 0) {
+                    particles.splice(index, 1);
+                } else {
+                    ctx.save();
+                    ctx.translate(particle.x, particle.y);
+                    ctx.rotate(particle.rotation);
+                    ctx.globalAlpha = particle.opacity;
+                    ctx.fillStyle = particle.color;
+                    // Kalp şeklinde konfeti çizimi
+                    ctx.beginPath();
+                    let r = particle.radius;
+                    ctx.moveTo(0, r/3);
+                    ctx.bezierCurveTo(r/3, -r/3, r, -r/3, r, r/3);
+                    ctx.bezierCurveTo(r, r, 0, r*1.5, 0, r*1.5);
+                    ctx.bezierCurveTo(0, r*1.5, -r, r, -r, r/3);
+                    ctx.bezierCurveTo(-r, -r/3, -r/3, -r/3, 0, r/3);
+                    ctx.fill();
+                    ctx.restore();
+                }
+            });
+        }
+        animateConfetti();
+
+        // Ekran boyutu değişirse canvas'ı ayarla
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
 </body>
 </html>
